@@ -36,13 +36,19 @@ bbox_lleft_y = data['LocationResult'][0]['BoundingBox']['LowerLeft']['Y_Lambert7
 bbox_uright_x = data['LocationResult'][0]['BoundingBox']['UpperRight']['X_Lambert72']
 bbox_uright_y = data['LocationResult'][0]['BoundingBox']['UpperRight']['Y_Lambert72']
 
-# printing the results
-print(f"\nLambert72 coordinates \n(x,y) = ({x_lambert},{y_lambert}) \n ")
+#binding box
+bbox = { 'ur_corner' : [bbox_uright_x,bbox_uright_y],
+         'ul_corner' : [bbox_lleft_x,bbox_uright_y],
+         'll_corner' : [bbox_lleft_x,bbox_lleft_y],
+         'lr_corner' : [bbox_uright_x,bbox_lleft_y] }
 
-print('Rectangle Bounding Box corners')
-print(f"upper right : ({bbox_uright_x},{bbox_uright_y})") 
-print(f"upper left : ({bbox_lleft_x},{bbox_uright_y})")
-print(f"lower left : ({bbox_lleft_x},{bbox_lleft_y})")
-print(f"lower right : ({bbox_uright_x},{bbox_lleft_y}) \n")
+# printing the results
+#print(f"\nLambert72 coordinates \n(x,y) = ({x_lambert},{y_lambert}) \n ")
+
+#print('Rectangle Bounding Box corners')
+#print(f"upper right : ({bbox_uright_x},{bbox_uright_y})") 
+#print(f"upper left : ({bbox_lleft_x},{bbox_uright_y})")
+#print(f"lower left : ({bbox_lleft_x},{bbox_lleft_y})")
+#print(f"lower right : ({bbox_uright_x},{bbox_lleft_y}) \n")
 
 # end of this part
