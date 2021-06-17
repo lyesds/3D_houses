@@ -7,7 +7,7 @@ import json
 URL = "http://loc.geopunt.be/v1/location?"
 
 # location given here EN or NL
-street_location = "Avenue Henry Dunant, Evere"
+street_location = "Aaigemstraat, Gent"
 number = 50
 
 # can give latitude and longitude also
@@ -41,6 +41,7 @@ bbox = { 'ur_corner' : [bbox_uright_x,bbox_uright_y],
          'ul_corner' : [bbox_lleft_x,bbox_uright_y],
          'll_corner' : [bbox_lleft_x,bbox_lleft_y],
          'lr_corner' : [bbox_uright_x,bbox_lleft_y] }
+
 
 # printing the results
 #print(f"\nLambert72 coordinates \n(x,y) = ({x_lambert},{y_lambert}) \n ")
