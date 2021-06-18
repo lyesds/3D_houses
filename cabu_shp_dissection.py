@@ -1,10 +1,9 @@
-#reading bpn_cabu.shp file
-
 #import libraries
 import geopandas as gpd
 import os.path
 import matplotlib.pyplot as plt
 
+#reading bpn_cabu.shp file
 filename = '/home/becode/Downloads/3D_data/Belgium_L72_2020/Bpn_CaBu.shp'
 
 def small_shape( m: str, n: str ):
@@ -32,13 +31,15 @@ def small_shape( m: str, n: str ):
 small_shape(40000, 4)
 
 #loop to divide main cabu into 100 parts and save 
-for i in range(1, 101):
-    out_path = "/home/becode/Downloads/3D_data/small_cabus/smaller_cabu_"
-    small = small_shape(40000, i)
-    com_string = str(out_path)+str(i)
-    small.to_file(com_string + '.shp')
+def hunderedth_of_main_shp():
+    for i in range(1, 101):
+        out_path = "/home/becode/Downloads/3D_data/small_cabus/smaller_cabu_"
+        small = small_shape(40000, i)
+        com_string = str(out_path)+str(i)
+        small.to_file(com_string + '.shp')
 
-
+#hunderedth_of_main_shp()
+'''Call if you want to divide a cabu/rebu and save to system'''
 
     
          
