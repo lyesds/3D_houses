@@ -2,7 +2,7 @@
 
 #import libraries
 import geopandas as gpd
-import pandas as pd
+import os.path
 import matplotlib.pyplot as plt
 
 filename = '/home/becode/Downloads/3D_data/Belgium_L72_2020/Bpn_CaBu.shp'
@@ -24,14 +24,24 @@ def small_shape( m: str, n: str ):
                         ignore_fields=["Type","FiscSitId","UpdDate"],
                         )
     
-    #convert to pandas df
-    #df = pd.DataFrame(gdf)
     #gdf.plot(facecolor='gray')
     #plt.tight_layout()
     return gdf
 
 
 small_shape(40000, 4)
+
+#loop to divide main cabu into 100 parts and save 
+for i in range(1, 101):
+    out_path = "/home/becode/Downloads/3D_data/small_cabus/smaller_cabu_"
+    small = small_shape(40000, i)
+    com_string = str(out_path)+str(i)
+    small.to_file(com_string + '.shp')
+
+
+
+    
+         
 
 
 
