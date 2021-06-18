@@ -66,34 +66,6 @@ print(locate(x=152458.45, y=212084.91))  # Schoenmarkt 35, 2000 Antwerpen
 # print(locate(x=150000, y=140000))  # should return empty list because outside Flanders
 '''
 
-x=152458.45
-y=212084.91
-p = 50  # number of pixels or meters north, south, east and west
-
-'''
-print(int(x), int(y))
-ds_DSM = gdal.Open(directory + 'DHMVIIDSMRAS1m_k' + locate(x=152458.45, y=212084.91)[0] + '.tif')
-
-xb = int(x) - int(ds_DSM.GetGeoTransform()[0])
-yb = int(ds_DSM.GetGeoTransform()[3]) - int(y)
-print(xb, yb)
-
-z = ds_DSM.ReadAsArray()
-print(z.shape)
-z = z[(yb - p):(yb + p), (xb - p):(xb + p)]
-print(z.shape)
-print(z)
-
-X = np.arange(int(x) - p, int(x) + p, 1)
-print(X)
-Y = np.arange(int(y) - p, int(y) + p, 1)
-print(Y)
-
-X, Y = np.meshgrid(X, Y)
-print(X)
-print(Y)
-
-'''
 
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator
@@ -130,19 +102,5 @@ def render_plot_around_xy(x: float, y: float):
     ax.set_zlabel('Height(m)')
 
     plt.show()
-
-
-'''
-    fig, ax = plt.subplots(figsize=(16, 8), subplot_kw={'projection': '3d'})
-    X = np.arange(int(x) - p, int(x) + p, 1)  # grid 50 meters left, right of x
-    Y = np.arange(int(y) - p, int(x) + p, 1)  # grid 50 meters under, above of y
-    X, Y = np.meshgrid(X, Y)
-    surf = ax.plot_surface(X, Y, z, rstride=1, cstride=1, cmap=matplotlib.cm.coolwarm, vmin=(z.min()), vmax=(z.max()), linewidth=0, antialiased=True)
-    difference = (z.max() - z.min())/10
-    ax.set_zlim((z.min()-difference), (z.max()+difference))
-    ax.view_init(60, -105)
-    fig.colorbar(surf, shrink=0.4, aspect=20)
-    plt.show()
-'''
 
 render_plot_around_xy(x=152458.45, y=212084.91)
