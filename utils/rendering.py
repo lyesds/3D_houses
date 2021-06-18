@@ -42,8 +42,8 @@ def render_bbox(bbox, geotiff_path):
     polygon_df[1] = -(polygon_df[1] - gt[3])
 
     cropped_data = dem[
-        int(polygon_df.iloc[1, 1]): int(polygon_df.iloc[0, 1]),
-        int(polygon_df.iloc[0, 0]): int(polygon_df.iloc[1, 0]),
+        int(polygon_df.iloc[1, 1]) : int(polygon_df.iloc[0, 1]),
+        int(polygon_df.iloc[0, 0]) : int(polygon_df.iloc[1, 0]),
     ]
 
     xres = gt[1]
