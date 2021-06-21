@@ -112,9 +112,3 @@ def render_plot(x, y, z):
     fig.colorbar(surf, shrink=0.4, aspect=20)
 
     plt.show()
-
-
-render_bbox(
-    bounding_box=[(152000, 242000), (152100, 241900)],
-    geotiff_path="/media/arnaud/0AE494D0E494BEFF/3d-house-data/DHMVIIDSMRAS1m_k01.tif",
-)
