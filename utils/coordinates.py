@@ -1,7 +1,18 @@
-from osgeo import gdal
+from osgeo import gdal  # type: ignore
 
 
 def degree_coordinate_to_geotiff_coordinate(tiff_file, lat, lon):
+    """[summary]
+
+    Args:
+        tiff_file ([type]): A geotiff file path, it's gonna get used
+        to extract the format of coordinates we want as output
+        lat ([type]): The latitude of the point we need to convert
+        lon ([type]): The longitude of the point we need to convert
+
+    Returns:
+        [type]: the converted lat and lon
+    """
     # Open tif file
     ds = gdal.Open(tiff_file)
 
@@ -10,20 +21,26 @@ def degree_coordinate_to_geotiff_coordinate(tiff_file, lat, lon):
 
     target = gdal.osr.SpatialReference()
     target.ImportFromWkt(ds.GetProjection())
-    print(int(target.GetAttrValue("AUTHORITY", 1)))
-    print(gdal.Info(tiff_file))
+
     target.ImportFromEPSG(int(target.GetAttrValue("AUTHORITY", 1)))
 
     ct_4326_to_3857 = gdal.osr.CoordinateTransformation(source, target)
     mapx, mapy, z = ct_4326_to_3857.TransformPoint(lat, lon)
-    print(mapx)
-    print(mapy)
+
     return mapx, mapy
 
 
-def dms_to_dd(d, m, s):
-    dd = d + float(m)/60 + float(s)/3600
+def convert_degree_minutes_seconds_to_degree(d, m, s):
+    """Convert from dms to degrees so that we can use the coordinates
+    in the degree_coordinate_to_geotiff_coordinate function
+
+    Args:
+        d ([type]): Degree
+        m ([type]): Minute
+        s ([type]): Seconds
+
+    Returns:
+        [type]: the coordinate in degree format
+    """
+    dd = d + float(m) / 60 + float(s) / 3600
     return dd
-
-
-#degree_coordinate_to_geotiff_coordinate('data/DHMVIIDSMRAS1m_k01/GeoTIFF/DHMVIIDSMRAS1m_k01.tif',51.533025,4.295441666666666)
