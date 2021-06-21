@@ -1,24 +1,20 @@
-
-# importing the requests library
-from re import X
 import requests
 import json
-
-URL_0 = "https://loc.geopunt.be/v1/location?"
-URL = 'http://loc.geopunt.be/geolocation/location?'
-
 
 # can give latitude and longitude also as attribute in function
 # lat_in_deg, lon_in_deg = 
 # PARAMS = {'lat':lat_in_deg, 'lon':lon_in_deg }
 
 # function to find the lambert72 x,y for the centre of a given address
-def lambert_x_y (house_address : str):
+def lambert_x_y (address_of_desired_place : str) -> float:
+    """ A function to return lambert x and y coordinates for the centre of
+    the desired place whose address is given by user."""
+
     # api-endpoint
-    URL = "https://loc.geopunt.be/v3/location?"
+    URL = "https://loc.geopunt.be/v1/location?"
 
     # defining a params dict for the parameters to be sent to the API
-    PARAMS = {'q':house_address}
+    PARAMS = {'q':address_of_desired_place}
   
     # sending get request and saving the response as response object
     r = requests.get(url = URL, params = PARAMS)
@@ -34,10 +30,12 @@ def lambert_x_y (house_address : str):
     return x_lambert, y_lambert
 
 # function for bounding box
-def lambert_bbox (address : str):
+def lambert_bbox (address : str) -> dict:
+    """ Function to return coordinates of the bounding box,
+    for a given address."""
     
     # api-endpoint
-    URL = "https://loc.geopunt.be/v3/location?"
+    URL = "https://loc.geopunt.be/v1/location?"
 
     # defining a params dict for the parameters to be sent to the API
     PARAMS = {'q':address}
@@ -63,12 +61,12 @@ def lambert_bbox (address : str):
             'll_corner' : [bbox_lleft_x,bbox_lleft_y],
             'lr_corner' : [bbox_uright_x,bbox_lleft_y] }
 
-    #print (bbox)
     return bbox
 
 
 # function for printing the results
-def print_lamberts (address : str):
+def print_lamberts (address : str) -> None: 
+    """ Function to print the lambert coordinates"""
     
     x_lambert, y_lambert = lambert_x_y(address)
     print(f"\nLambert72 coordinates \n(x,y) = ({x_lambert},{y_lambert}) \n ")
@@ -79,10 +77,7 @@ def print_lamberts (address : str):
     print(f"upper left : {bbox['ul_corner']}")
     print(f"lower left : {bbox['ll_corner']}")
     print(f"lower right : {bbox['lr_corner']} \n")
+
     return
 
-# location given here EN or NL
-location = "Aaigemstraat 10, Gent"
-
-print(lambert_x_y(location))
 # end of this part
