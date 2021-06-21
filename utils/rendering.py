@@ -14,6 +14,7 @@ def render_geotiff(geotiff_path):
     gt = dem.GetGeoTransform()
     dem = dem.ReadAsArray()
 
+    # Creating a x and y grid with all the x and y coordinates
     xres = gt[1]
     yres = gt[5]
 
@@ -25,43 +26,58 @@ def render_geotiff(geotiff_path):
     render_plot(x, y, dem)
 
 
-def render_bbox(bbox, geotiff_path):
+def render_bbox(bounding_box, geotiff_path):
     """Function that crop a geotiff file by using a bounding box
     coordinate in order to render it in a 3d plot later
     Args:
         bbox ([type]): a bounding box as an array of 2 tupples, 1st tupple is
-        the coordinates of top left corner and second tupple is
-        coordinates of lower right corner
+        the coordinates of one of the corners and second tupple is
+        coordinates of the opposite corner
         geotiff_path ([type]): [description]
     """
+
+    # Initialize the datas
     dem = gdal.Open(geotiff_path)
     gt = dem.GetGeoTransform()
     dem = dem.ReadAsArray()
-    polygon_df = pd.DataFrame(data=bbox)
-    polygon_df[0] = polygon_df[0] - gt[0]
-    polygon_df[1] = -(polygon_df[1] - gt[3])
 
-    cropped_data = dem[
-        int(polygon_df.iloc[1, 1]) : int(polygon_df.iloc[0, 1]),
-        int(polygon_df.iloc[0, 0]) : int(polygon_df.iloc[1, 0]),
+    # Cropping the original datas to just the ones contained inside the bounding box
+    bounding_box_df = pd.DataFrame(data=bounding_box)
+    bounding_box_df[0] = bounding_box_df[0] - gt[0]
+    bounding_box_df[1] = -(bounding_box_df[1] - gt[3])
+
+    bounding_box_df_x = [
+        int(bounding_box_df.iloc[1, 1]),
+        int(bounding_box_df.iloc[0, 1]),
+    ]
+    bounding_box_df_y = [
+        int(bounding_box_df.iloc[0, 0]),
+        int(bounding_box_df.iloc[1, 0]),
     ]
 
+    cropped_data = dem[
+        min(bounding_box_df_x) : max(bounding_box_df_x),
+        min(bounding_box_df_y) : max(bounding_box_df_y),
+    ]
+
+    # Creating a x and y grid with all the x and y coordinates
     xres = gt[1]
     yres = gt[5]
 
     x = np.arange(
-        polygon_df.iloc[0, 0],
-        polygon_df.iloc[0, 0] + cropped_data.shape[1] * xres,
+        min(bounding_box_df_x),
+        min(bounding_box_df_x) + cropped_data.shape[1] * xres,
         xres,
     )
     y = np.arange(
-        polygon_df.iloc[0, 1],
-        polygon_df.iloc[0, 1] + cropped_data.shape[0] * yres,
+        min(bounding_box_df_y),
+        min(bounding_box_df_y) + cropped_data.shape[0] * yres,
         yres,
     )
 
     x, y = np.meshgrid(x, y)
 
+    # Rendering the plot
     render_plot(x, y, cropped_data)
 
 
@@ -96,3 +112,9 @@ def render_plot(x, y, z):
     fig.colorbar(surf, shrink=0.4, aspect=20)
 
     plt.show()
+
+
+render_bbox(
+    bounding_box=[(152000, 242000), (152100, 241900)],
+    geotiff_path="/media/arnaud/0AE494D0E494BEFF/3d-house-data/DHMVIIDSMRAS1m_k01.tif",
+)
