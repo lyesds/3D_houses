@@ -1,8 +1,5 @@
 import requests
 
-#reading Bpn_CaPa_VLA.shp file from Belgium 72 lambert data
-filename = '/home/becode/Downloads/3D_data/Belgium_L72_2020/Bpn_CaPa_VLA.shp'
-
 # api-endpoint
 URL = "https://loc.geopunt.be/v1/location?"
 
