@@ -128,8 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Vs code
-.vscode
-.pre-commit-config.yaml
-data
-.flake8
+
