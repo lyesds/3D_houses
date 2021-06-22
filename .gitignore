@@ -134,5 +134,7 @@ dmypy.json
 address_to_degree_coordinates.py
 slicing_geotiff.py
 cabu_shp_dissection.py
+shape.py
+unit_test.py
 
 
