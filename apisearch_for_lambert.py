@@ -1,18 +1,27 @@
 import requests
-import json
+import geopandas as gpd
+import pandas as pd
+from shapely.geometry import Point, Polygon
+
+#reading Bpn_CaPa_VLA.shp file from Belgium 72 lambert data
+filename = '/home/becode/Downloads/3D_data/Belgium_L72_2020/Bpn_CaPa_VLA.shp'
+
+#sample addresses
+raw_data = ["Aaigemstraat 10, Gent",
+            "Schoenmarkt 35, 2000 Antwerpen",
+            "Steenstraat 75, Bruges 8000"]
+
+address_1 = "Aaigemstraat 10, Gent"
 
 # api-endpoint
 URL = "https://loc.geopunt.be/v1/location?"
 
-# can give latitude and longitude also as attribute in function
-# lat_in_deg, lon_in_deg = 
-# PARAMS = {'lat':lat_in_deg, 'lon':lon_in_deg }
-
 # function to find the lambert72 x,y for the centre of a given address
 # to be used in MVP
-def lambert_x_y (address_of_desired_place : str, URL : str) -> float:
+def lambert_x_y (address_of_desired_place : str, URL : str) -> Point:
     """ A function to return lambert x and y coordinates for the centre of
-    the desired place whose address is given by user."""
+    the desired place whose address is given by user. The coordinates are 
+    returned in form of a Shapely Point"""
 
     # defining a params dict for the parameters to be sent to the API
     PARAMS = {'q':address_of_desired_place}
@@ -22,61 +31,29 @@ def lambert_x_y (address_of_desired_place : str, URL : str) -> float:
 
     # extracting data in json format
     data = r.json()
-    #print(json.dumps(data, indent=3))
 
     #Lambert72 i.e. Belgian system coordinates for a given address
     x_lambert = (data['LocationResult'][0]['Location']['X_Lambert72'])
     y_lambert = (data['LocationResult'][0]['Location']['Y_Lambert72'])  
-  
-    return x_lambert, y_lambert
-
-# function for bounding box
-# additional, not for use in MVP
-def lambert_bbox (address : str, URL : str) -> dict:
-    """ Function to return coordinates of the bounding box,
-    for a given address."""
     
-    # defining a params dict for the parameters to be sent to the API
-    PARAMS = {'q':address}
-  
-    # sending get request and saving the response as response object
-    r = requests.get(url = URL, params = PARAMS)
+    #converting x,y coordinates to a point
+    point = Point(x_lambert, y_lambert)
 
-    # extracting data in json format
-    data = r.json()
-    
-    #Bounding Box is the smallest rectangle containing the locations geometry.
-    #bounding box lower left
-    bbox_lleft_x = data['LocationResult'][0]['BoundingBox']['LowerLeft']['X_Lambert72']
-    bbox_lleft_y = data['LocationResult'][0]['BoundingBox']['LowerLeft']['Y_Lambert72']
+    return point
 
-    #bounding box upper right
-    bbox_uright_x = data['LocationResult'][0]['BoundingBox']['UpperRight']['X_Lambert72']
-    bbox_uright_y = data['LocationResult'][0]['BoundingBox']['UpperRight']['Y_Lambert72']
+#match point with polygon
+def polygon_from_point(filename : str, point : Point) -> Polygon:
+    """ Function to match a given lambert coordinates point of a address 
+    with the polygons in the desired shape file."""
 
-    #bounding box
-    bbox = { 'ur_corner' : [bbox_uright_x,bbox_uright_y],
-            'ul_corner' : [bbox_lleft_x,bbox_uright_y],
-            'll_corner' : [bbox_lleft_x,bbox_lleft_y],
-            'lr_corner' : [bbox_uright_x,bbox_lleft_y] }
+    match = gpd.read_file(filename,  
+                        mask = point, #only returning the desired polygon
+                        ignore_fields=["Type","FiscSitId","UpdDate"],
+                        )
 
-    return bbox
+    polygon = match.iat[0,4] #returning the cell containing Polygon
 
-# function for printing the results
-# additional, not for use in MVP
-def print_lamberts (address : str) -> None: 
-    """ Function to print the lambert coordinates"""
-    
-    x_lambert, y_lambert = lambert_x_y(address)
-    print(f"\nLambert72 coordinates \n(x,y) = ({x_lambert},{y_lambert}) \n ")
+    return polygon
 
-    print('Rectangle Bounding Box corners')
-    bbox = lambert_bbox(address)    
-    print(f"upper right : {bbox['ur_corner']}") 
-    print(f"upper left : {bbox['ul_corner']}")
-    print(f"lower left : {bbox['ll_corner']}")
-    print(f"lower right : {bbox['lr_corner']} \n")
-
-    return
 
 # end of this part
