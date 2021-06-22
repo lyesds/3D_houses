@@ -1,17 +1,17 @@
 import requests
 import json
 
+# api-endpoint
+URL = "https://loc.geopunt.be/v1/location?"
+
 # can give latitude and longitude also as attribute in function
 # lat_in_deg, lon_in_deg = 
 # PARAMS = {'lat':lat_in_deg, 'lon':lon_in_deg }
 
 # function to find the lambert72 x,y for the centre of a given address
-def lambert_x_y (address_of_desired_place : str) -> float:
+def lambert_x_y (address_of_desired_place : str, URL : str) -> float:
     """ A function to return lambert x and y coordinates for the centre of
     the desired place whose address is given by user."""
-
-    # api-endpoint
-    URL = "https://loc.geopunt.be/v1/location?"
 
     # defining a params dict for the parameters to be sent to the API
     PARAMS = {'q':address_of_desired_place}
@@ -30,13 +30,10 @@ def lambert_x_y (address_of_desired_place : str) -> float:
     return x_lambert, y_lambert
 
 # function for bounding box
-def lambert_bbox (address : str) -> dict:
+def lambert_bbox (address : str, URL : str) -> dict:
     """ Function to return coordinates of the bounding box,
     for a given address."""
     
-    # api-endpoint
-    URL = "https://loc.geopunt.be/v1/location?"
-
     # defining a params dict for the parameters to be sent to the API
     PARAMS = {'q':address}
   
