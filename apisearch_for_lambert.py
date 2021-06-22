@@ -5,7 +5,7 @@ URL = "https://loc.geopunt.be/v1/location?"
 
 # function to find the lambert72 x,y for the centre of a given address
 # to be used in MVP
-def lambert_x_y (address_of_desired_place : str, URL : str) -> float:
+def lambert_x_y (address_of_desired_place : str) -> float:
     """ A function to return lambert x and y coordinates for the centre of
     the desired place whose address is given by user."""
 
@@ -26,7 +26,7 @@ def lambert_x_y (address_of_desired_place : str, URL : str) -> float:
 
 # function for bounding box
 # additional, not for use in MVP
-def lambert_bbox (address : str, URL : str) -> dict:
+def lambert_bbox (address : str) -> dict:
     """ Function to return coordinates of the bounding box,
     for a given address."""
     
