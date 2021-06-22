@@ -46,8 +46,17 @@ def geotiff_viz_df(datapath: str, chart: bool = False):
     return df_corners
 
 
-def locate(x: float, y: float) -> list:
-    df_corners = geotiff_viz_df(datapath='data/DSM/GeoTIFF/')
+def locate(datapath: str, x: float, y: float) -> list:
+    """
+    Finds in which .tif file number the (x,y) coordinates are located.
+    Returns a list with one or two element(s).
+    If the coordinates are not inside one of the 43 tif (available) files, the list is empty.
+    :param datapath: the folder where the DSM are located
+    :param x: the Lambert72 x coordinate of the point of interest
+    :param y: the Lambert72 y coordinate of the point of interest
+    :return: a list containing the id number of the Geotiff (.tif) file
+    """
+    df_corners = geotiff_viz_df(datapath)
     ls = []
     for i in range(df_corners.shape[0]):
         if df_corners.iloc[i, 1] <= x <= df_corners.iloc[i, 2]:
@@ -63,7 +72,10 @@ def locate(x: float, y: float) -> list:
             continue
     return ls
 
-# locate(x=152458.45, y=212084.91)
+
+# Example of use of this function:
+# print(locate(datapath='data/DSM/GeoTIFF/', x=152458.45, y=212084.91)) #  <-- Lambert72 coordinates of this address:
+                                                                            # Schoenmarkt 35, 2000 Antwerpen
 
 
 def render_plot_around_xy(datapath: str, x: float, y: float, p: int = 40):
@@ -73,11 +85,11 @@ def render_plot_around_xy(datapath: str, x: float, y: float, p: int = 40):
     :param datapath: the folder where the DSM and DTM are located
     :param x: the Lambert72 x coordinate of the point of interest
     :param y: the Lambert72 y coordinate of the point of interest
-    :param p: the number of pixels or meters north, south, east and west away from (x,y) point
+    :param p: the number of pixels or meters north, south, east and west away from (x,y) point. Default is 40.
     :return: a matplotlib chart shown
     """
-    ds_DSM = gdal.Open(datapath + 'DHMVIIDSMRAS1m_k' + locate(x, y)[0] + '.tif')  # DSM data, surface
-    ds_DTM = gdal.Open(datapath + 'DHMVIIDTMRAS1m_k' + locate(x, y)[0] + '.tif')  # DTM data, terrain
+    ds_DSM = gdal.Open(datapath + 'DHMVIIDSMRAS1m_k' + locate(datapath, x, y)[0] + '.tif')  # DSM data, surface
+    ds_DTM = gdal.Open(datapath + 'DHMVIIDTMRAS1m_k' + locate(datapath, x, y)[0] + '.tif')  # DTM data, terrain
     xb = int(x) - int(ds_DSM.GetGeoTransform()[0])
     yb = int(ds_DSM.GetGeoTransform()[3]) - int(y)
     Z = ds_DSM.ReadAsArray(xsize=2*p, xoff=xb-p, ysize=2*p, yoff=yb-p)\
@@ -94,7 +106,7 @@ def render_plot_around_xy(datapath: str, x: float, y: float, p: int = 40):
 
     # Demo 3: text2D
     # Placement 0, 0 would be the bottom left, 1, 1 would be the top right.
-    ax.text2D(0, 0.95, "Schoenmarkt 35, 2000 Antwerpen", transform=ax.transAxes)
+    ax.text2D(0, 0.95, "x="+str(x)+", y="+str(y), transform=ax.transAxes)
 
     # Tweaking display region and labels
     ax.set_xlabel('X Lambert72')
@@ -105,4 +117,5 @@ def render_plot_around_xy(datapath: str, x: float, y: float, p: int = 40):
     plt.show()
 
 
-render_plot_around_xy(datapath='data/DSM/GeoTIFF/', x=152458.45, y=212084.91)
+# Example of use of this function:
+render_plot_around_xy(datapath='data/DSM/GeoTIFF/', x=152458.45, y=212084.91, p=45)
