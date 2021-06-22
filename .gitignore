@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+#3Dhouses
+/home/becode/3D_houses/test_3D_houses
+address_to_degree_coordinates.py
+slicing_geotiff.py
+cabu_shp_dissection.py
+
+

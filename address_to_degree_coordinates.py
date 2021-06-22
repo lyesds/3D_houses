@@ -2,21 +2,23 @@
 
 ## import libraries
 import geopandas
-import geopyls
+import geopy
 
-## defining locator and giving the address
-## we use Nominatim Geocoding service, which is built on top of OpenStreetMap data
-locator = geopy.Nominatim(user_agent = 'myGeocoder')
-address = locator.geocode("Mount Everest, Nepal")
+## function to return coordinates
+def coords(given_address : str) -> tuple :
 
-## address to coords
-print("Latitude = {}, Longitude = {}".format(address.latitude, address.longitude))
-print("Altitude = {}".format(address.altitude))
+    ''' 
+    Function to return WSG4 latitude and latitude of the 
+    given address in degrees.
+    '''
 
-## as a function
-def coords(given_address):
+    locator = geopy.Nominatim(user_agent = 'myGeocoder')
     add  = locator.geocode(given_address)
+
+    ## printing address to coords
+    print("Latitude = {}, Longitude = {}".format(add.latitude, add.longitude))
+    print("Altitude = {}".format(add.altitude))
+
     return (add.latitude, add.longitude)
 
-##testing the function
-print(coords('Atomium, Brussels'))
+
