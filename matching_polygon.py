@@ -19,7 +19,7 @@ def polygon_from_point(filename : str, x_lambert, y_lambert) -> Polygon:
     point = Point(x_lambert, y_lambert)
 
     #finding a match with the right polygon from the shape file
-    match = gpd.read_file(shp_filename,  
+    match = gpd.read_file(filename,  
                         mask = point, #only returning the desired polygon
                         ignore_fields=["Type","FiscSitId","UpdDate"],
                         )
