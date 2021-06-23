@@ -102,8 +102,13 @@ Geodata was a new format of data that was interesting as well as challenging. Th
 
 * Another dimension was the complexity of data present in the DSM, DTM (43 x 2) zip folders, which totalled to more than 20/40 GB of data. Multiple files exist in layered file tree. The .tif files from 
 
+#### Data collection and cleaning
 
+#### Connecting the data and data processing  
 
+#### Data Visualization  
+
+#### GitHub collaboration  
 
 ### **Contributions**
 
