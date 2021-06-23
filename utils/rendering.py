@@ -1,18 +1,19 @@
-from utils.geotiff_df_locate_3Dplot import locate
 import matplotlib.pyplot as plt  # type: ignore
 import numpy as np
-import pandas as pd  # type: ignore
-from osgeo import gdal  # type: ignore
-from matplotlib import cm
-from PIL import Image, ImageDraw
 import numpy.ma as ma
+import pandas as pd  # type: ignore
+from matplotlib import cm
+from osgeo import gdal  # type: ignore
+from PIL import Image, ImageDraw
+
+from utils.geotiff_df_locate_3Dplot import locate
 
 
 def render_geotiff(geotiff_path):
     """Function to procces datas from a geotiff in order to render it in a 3d plot
 
     Args:
-        geotiff_path ([type]): geotiff path file
+        geotiff_path (str): geotiff path file
     """
     dem = gdal.Open(geotiff_path)
     gt = dem.GetGeoTransform()
@@ -66,7 +67,7 @@ def render_bbox(bounding_box, geotiff_path):
     # Creating a x and y grid with all the x and y coordinates
 
     x = np.arange(int(min(bounding_box_df_x) + gt[0]), int(max(bounding_box_df_x) + gt[0]), 1)
-    y = np.arange(int(gt[3] - max(bounding_box_df_y)), int(gt[3] - min(bounding_box_df_y)), 1)
+    y = np.arange(int(gt[3] - min(bounding_box_df_y)), int(gt[3] - max(bounding_box_df_y)), -1)
     x, y = np.meshgrid(x, y)
 
     # Rendering the plot
@@ -84,12 +85,12 @@ def render_plot(x, y, z):
     fig, ax = plt.subplots(figsize=(16, 8), subplot_kw={"projection": "3d"})
 
     surf = ax.plot_surface(
-        y,
         x,
+        y,
         z,
         rstride=1,
         cstride=1,
-        cmap=plt.cm.RdYlBu_r,
+        cmap=cm.viridis,
         vmin=(z.min()),
         vmax=(z.max()),
         linewidth=0,
@@ -99,7 +100,12 @@ def render_plot(x, y, z):
     difference = (z.max() - z.min()) / 10
 
     ax.set_zlim((z.min() - difference), (z.max() + difference))
-    ax.view_init(60, -105)
+    plt.ticklabel_format(useOffset=False)
+
+    # Tweaking display region and labels
+    ax.set_xlabel("X Lambert72")
+    ax.set_ylabel("Y Lambert72")
+    ax.set_zlabel("Height(m)")
 
     fig.colorbar(surf, shrink=0.4, aspect=20)
 
@@ -116,40 +122,41 @@ def render_plot_around_xy(datapath: str, x: float, y: float, p: int = 40):
     :param p: the number of pixels or meters north, south, east and west away from (x,y) point. Default is 40.
     :return: a matplotlib chart shown
     """
-    ds_DSM = gdal.Open(datapath + 'DHMVIIDSMRAS1m_k' + locate(datapath, x, y)[0] + '.tif')  # DSM data, surface
-    print(locate(datapath, x, y)[0])
-    ds_DTM = gdal.Open(datapath + 'DHMVIIDTMRAS1m_k' + locate(datapath, x, y)[0] + '.tif')  # DTM data, terrain
+    ds_DSM = gdal.Open(datapath + "DHMVIIDSMRAS1m_k" + locate(datapath, x, y)[0] + ".tif")  # DSM data, surface
+    ds_DTM = gdal.Open(datapath + "DHMVIIDTMRAS1m_k" + locate(datapath, x, y)[0] + ".tif")  # DTM data, terrain
     xb = int(x) - int(ds_DSM.GetGeoTransform()[0])
     yb = int(ds_DSM.GetGeoTransform()[3]) - int(y)
-    print(xb - p)
-    print(yb - p)
-    Z = ds_DSM.ReadAsArray(xsize=2 * p, xoff=xb - p, ysize=2 * p, yoff=yb - p)\
-        - ds_DTM.ReadAsArray(xsize=2 * p, xoff=xb - p, ysize=2 * p, yoff=yb - p)
+    Z = ds_DSM.ReadAsArray(xsize=2 * p, xoff=xb - p, ysize=2 * p, yoff=yb - p) - ds_DTM.ReadAsArray(
+        xsize=2 * p, xoff=xb - p, ysize=2 * p, yoff=yb - p
+    )
     # Z is the height of the construction, difference between DSM and DTM
 
     X = np.arange(int(x) - p, int(x) + p, 1)  # grid p meters left, right of x
     Y = np.arange(int(y) - p, int(y) + p, 1)  # grid p meters under, above of y
     X, Y = np.meshgrid(X, Y)
 
-    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-    # Plot the surface.
-    surf = ax.plot_surface(Y, X, Z, cmap=cm.viridis, linewidth=0, antialiased=False)
+    render_plot(X, Y, Z)
 
-    # Demo 3: text2D
-    # Placement 0, 0 would be the bottom left, 1, 1 would be the top right.
-    ax.text2D(0, 0.95, "x=" + str(x) + ", y=" + str(y), transform=ax.transAxes)
+    # fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+    # # Plot the surface.
+    # surf = ax.plot_surface(Y, X, Z, cmap=cm.viridis, linewidth=0, antialiased=False)
 
-    # Tweaking display region and labels
-    ax.set_xlabel('X Lambert72')
-    ax.set_ylabel('Y Lambert72')
-    ax.set_zlabel('Height(m)')
+    # # Demo 3: text2D
+    # # Placement 0, 0 would be the bottom left, 1, 1 would be the top right.
+    # ax.text2D(0, 0.95, "x=" + str(x) + ", y=" + str(y), transform=ax.transAxes)
 
-    fig.colorbar(surf, shrink=0.4, aspect=20)
-    plt.show()
+    # # Tweaking display region and labels
+    # ax.set_xlabel("X Lambert72")
+    # ax.set_ylabel("Y Lambert72")
+    # ax.set_zlabel("Height(m)")
+
+    # fig.colorbar(surf, shrink=0.4, aspect=20)
+    # plt.show()
 
 
 # Example of use of this function:
 # render_plot_around_xy(datapath='data/DSM/GeoTIFF/', x=152458.45, y=212084.91, p=45)
+
 
 def render_polygon(polygon, geotiff_path):
     """Function that crop a geotiff file by using a bounding box
@@ -163,14 +170,14 @@ def render_polygon(polygon, geotiff_path):
 
     x_list, y_list = polygon.exterior.coords.xy
     polygon_coordinates = list(zip([x - polygon.bounds[0] for x in x_list], [(y - polygon.bounds[1]) for y in y_list]))
-    # print(polygon.bounds)
-    aaa = 0
-    bounding_box = [(polygon.bounds[0] - aaa, polygon.bounds[1] - aaa), (polygon.bounds[2] + aaa, polygon.bounds[3] + aaa)]
-    plt.plot(*polygon.exterior.xy)
+    bounding_box = [
+        (polygon.bounds[0], polygon.bounds[1]),
+        (polygon.bounds[2], polygon.bounds[3]),
+    ]
 
     # Initialize the datas
-    dem = gdal.Open(geotiff_path)
-    gt = dem.GetGeoTransform()
+    z = gdal.Open(geotiff_path)
+    gt = z.GetGeoTransform()
 
     # Cropping the original datas to just the ones contained inside the bounding box
     bounding_box_df = pd.DataFrame(data=bounding_box)
@@ -189,9 +196,8 @@ def render_polygon(polygon, geotiff_path):
     xsize = int(max(bounding_box_df_x) - min(bounding_box_df_x))
     ysize = int(max(bounding_box_df_y) - min(bounding_box_df_y))
 
-    dem = dem.ReadAsArray(xoff=int(min(bounding_box_df_x)), yoff=int(min(bounding_box_df_y)), xsize=xsize, ysize=ysize)
-    z = dem
-    img = Image.new('L', (z.shape[1], z.shape[0]), 1)
+    z = z.ReadAsArray(xoff=int(min(bounding_box_df_x)), yoff=int(min(bounding_box_df_y)), xsize=xsize, ysize=ysize)
+    img = Image.new("L", (z.shape[1], z.shape[0]), 1)
     ImageDraw.Draw(img).polygon(polygon_coordinates, outline=0, fill=0)
     masked_array = np.array(img)
     np.set_printoptions(threshold=np.inf)
@@ -200,31 +206,8 @@ def render_polygon(polygon, geotiff_path):
     # Creating a x and y grid with all the x and y coordinates
 
     x = np.arange(int(min(bounding_box_df_x) + gt[0]), int(max(bounding_box_df_x) + gt[0]), 1)
-    y = np.arange(int(gt[3] - max(bounding_box_df_y)), int(gt[3] - min(bounding_box_df_y)), 1)
+    y = np.arange(int(gt[3] - min(bounding_box_df_y)), int(gt[3] - max(bounding_box_df_y)), -1)
     x, y = np.meshgrid(x, y)
 
     # Rendering the plot
-
-    fig, ax = plt.subplots(figsize=(16, 8), subplot_kw={"projection": "3d"})
-
-    surf = ax.plot_surface(
-        y,
-        x,
-        z,
-        rstride=1,
-        cstride=1,
-        cmap=plt.cm.RdYlBu_r,
-        vmin=(z.min()),
-        vmax=(z.max()),
-        linewidth=0,
-        antialiased=True,
-    )
-
-    difference = (z.max() - z.min()) / 10
-
-    ax.set_zlim((z.min() - difference), (z.max() + difference))
-    ax.view_init(60, -105)
-
-    fig.colorbar(surf, shrink=0.4, aspect=20)
-
-    plt.show()
+    render_plot(x, y, z)
