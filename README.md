@@ -4,7 +4,7 @@
 
 **Project dates :** 14th - 21st June, 2021
 
-### Team Spacy : _Arnaud D, Lyes R, Shilpa S_
+### Team SpaCy : _Arnaud D, Lyes R, Shilpa S_
 
 ### Project Objective :
 ---
