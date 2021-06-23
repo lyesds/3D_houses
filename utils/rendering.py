@@ -137,22 +137,6 @@ def render_plot_around_xy(datapath: str, x: float, y: float, p: int = 40):
 
     render_plot(X, Y, Z)
 
-    # fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-    # # Plot the surface.
-    # surf = ax.plot_surface(Y, X, Z, cmap=cm.viridis, linewidth=0, antialiased=False)
-
-    # # Demo 3: text2D
-    # # Placement 0, 0 would be the bottom left, 1, 1 would be the top right.
-    # ax.text2D(0, 0.95, "x=" + str(x) + ", y=" + str(y), transform=ax.transAxes)
-
-    # # Tweaking display region and labels
-    # ax.set_xlabel("X Lambert72")
-    # ax.set_ylabel("Y Lambert72")
-    # ax.set_zlabel("Height(m)")
-
-    # fig.colorbar(surf, shrink=0.4, aspect=20)
-    # plt.show()
-
 
 # Example of use of this function:
 # render_plot_around_xy(datapath='data/DSM/GeoTIFF/', x=152458.45, y=212084.91, p=45)
