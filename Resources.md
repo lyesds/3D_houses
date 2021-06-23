@@ -10,4 +10,17 @@ Digital Elevation Model (DEM), Digital Surface Model (DSM) and Digital Terrain M
 
 [Spatial data in python](http://www.wvview.org/open_source_gis/site_renders/Python_Spatial/site/index.html)
 
+[Spatial geopandas](https://spatialvision.com.au/blog-open-source-spatial-geopandas-part-2/)
+
 [Reading Geospatial data](https://towardsdatascience.com/reading-and-visualizing-geotiff-images-with-python-8dcca7a74510)
+
+[adding basemaps](https://dlab.berkeley.edu/blog/adding-basemaps-python-contextily)
+
+[gdal in python](https://www.youtube.com/watch?v=p_BsFdV_LUk)
+
+[overview of geodata](https://carpentries-incubator.github.io/geospatial-python/aio/index.html)
+
+[python API tutorial](https://www.dataquest.io/blog/python-api-tutorial/)
+
+[Nominatim library](https://nominatim.org/release-docs/develop/api/Search/)
+
