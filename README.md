@@ -1,134 +1,56 @@
-# 3D_houses :houses: Project
+# 3D_houses: a _geodata_ visualization project :houses:
 
-**Project duration :** 2 weeks
+### The team
+This project was a teamwork by [Arnaud D.](
+https://github.com/Pablousse), [Lyes](
+https://github.com/lyesds) and [Shilpa S.](https://github.com/ssg-hub).
+### The project
+This project is a _learning_ project about **data visualization** using Python tools.
+The objective is to generate a **3D rendering** of any building located in the Flanders region of Belgium.
 
-**Project dates :** 14th - 25th June, 2021
+Here how the 3D rendering looks like (for now):
+![Schoenmarkt35](assets/Schoenmarkt%2035,%202000%20Antwerpen%20DSM%20minus%20DTM.png)
 
-### Team SpaCy : _Arnaud D, Lyes R, Shilpa S_
+### The timeline
+This work was done during working hours in 2 weeks in June 2021 as required by the project timeline.
+It means there's room for improvements in the future if more time could be allowed to it ;)
 
-### Project Objective :
----
-The project **3D_houses** ojective is to generate a **3D** model of the building structure for a given address in the Flanders region of **Belgium**.  
+### "Maturity" and progression of the project
+Please note that this project was done at the beginning of a training in AI where the teammates were enrolled. The primary objective was to **consolidate** our learnings in:
+- Python (specifically in pandas, numpy and matplotlib libraries),
+- Git and GitHub,
+- IDEs and notebooks,
+- Teamwork
 
-***Input :*** _An address given by user or selected by user from a pre-determined list._  
-Example : Rue de Geneve 12, Evere
-Google map view :
+This is why there is room for improvements, both for the 3D rendering itself (using other plotting libraries)
+and for adding other features like living area of the house in m², how many floors, if there is a pool, the vegetation in the neighborhood, etc...
+Therefore, any contribution (comments, feedback, feature suggestion) or help is very welcome.
 
-***Output :*** _A **3D** image rendered for the building structure at the above address._  
-Example :
+### How it works (in a nutshell)
+From the address of a house or building given by the final user or selected from a pre-determined list, our application retrieves:
+- its location within Flanders (using an API), 
+- the cadastral data associated to it,
+- the elevation data (please see resources.md for more info) of the location and its surroundings
 
-### Learning Objectives :
-***
-:heavy_check_mark: **Consolidate the knowledge in Python :snake:, specifically in :**   
-- NumPy    
-- Pandas  
-- Matplotlib 
+Then, our python programming will ensure the 3D rendering!
 
-:heavy_check_mark: **to be able to search and implement new libraries**  
-_New libraries searched and explored_  
-* geopandas
-* osgeo , gdal
-* rastario
-* shapely
-
-:heavy_check_mark: **to be able to read and use the shapefile format**  
-Read and used shapefiles from .shp files within [public data](https://eservices.minfin.fgov.be/myminfin-web/pages/cadastral-plans) for Belgium coordinate system _L_72 i.e.Lambert 72_  
-
-:heavy_check_mark: **to be able to read and use geoTIFFs**  
-Read and used geoTIFFs from .tif files within the **DTM** and **DSM** public data.  
-
-:heavy_check_mark: **to be able to render a _3D_ plot**  
-(link to 3D plot)
-
-:heavy_check_mark: **to be able to present a final product**     
-(link to the jupyter notebook)
-
-### The Client and mission behind the project
-***
--Client: LIDAR PLANES, active in the Geospatial industry.  
--End use of data : To launch a new branch in the insurance business.  
--3D_houses project goal : To build a solution with the client data to model a house in 3D with only a home address.  
-
-**Must-have features MVP** 
-3D lookup of houses :heavy_check_mark: :heavy_check_mark: _Delivered_  
-
-**Nice-to-have features**  
-Optimize your solution to have the result as fast as possible.  
-Features like the living area of the house in m², how many floors, if there is a pool, the vegetation in the neighborhood, etc...  
-Better visualization.  :heavy_check_mark: :heavy_check_mark: _Delivered_  
-
-### Data :
-***
+### Open data used
 [DSM - Digital Surface Model](http://www.geopunt.be/download?container=dhm-vlaanderen-ii-dsm-raster-1m&title=Digitaal%20Hoogtemodel%20Vlaanderen%20II,%20DSM,%20raster,%201m) 
 [DTM - Digital Terrain Model](http://www.geopunt.be/download?container=dhm-vlaanderen-ii-dtm-raster-1m&title=Digitaal%20Hoogtemodel%20Vlaanderen%20II,%20DTM,%20raster,%201m)  
 Above links contain the required _.tif_ files for DSM and DTM respectively. _.tif_ is for the elevation of a structure.
 
 [Cadastral Data](https://eservices.minfin.fgov.be/myminfin-rest/cadastral-plan/cadastralPlan/2020/Belgium/72)  
-Above link contains the required _.shp_ files for Belgium specific Lambert72 coordinates. They are for the location and the shape of the building on ground.
+Above link contains the required files for Belgium specific Lambert72 coordinates. They are for the location, and the shape of the building on ground.
 
 ### Installation Guide
-First of all you need to clone the project with this command in your terminal :
+1. Clone the project with this command in your terminal :
 > git clone https://github.com/lyesds/3D_houses.git
-
-Then you need to download all of the DSM and DTM files, extract them
-and take the file with a .tif extension (situated in the GeoTIFF folder of each DSM/DTM) and put it in the respective folders, assets/data/DSM for DSM files and assets/data/DTM for DTM files
-
-After that download the Cadastral data, extract it and put all of the files with the .shp extension inside assets/data/cadastral
-
-Lastly, run :
+2. Download at least one couple of DSM/DTM related files (for example DHMVIIDSMRAS1m_k15.zip _and_ DHMVIIDTMRAS1m_k15.zip). The more files you have, the larger the area of Flanders will be covered by the application.
+3. Extract the content of the GeoTIFF folder inside the downloaded zip files into folders `assets/data/DSM` and `assets/data/DTM` respectively.
+4. Download the cadastral data (see link above) and extract its content into `assets/data/cadastral`.
+5. Lastly, go to the root of the project folder with your terminal and run the line below :
 > pip install -r requirements.txt
 
-In your terminal, at the root of the project folder
-
 ### How to use
-[Click here to open the interface](link to jupyter nb)  
- 
-
-### Results  
-***  
-#### Data Visualization  
-:belgium: Plot a 3D house from a given list of addresses in Flanders.    
-(link to notebook)
-Image
-
-
-:belgium: Plot a 3D structure for a monument in Flanders, Belgium.  
-(link to notebook)
-Image
-
-more images  
-
-### Challenges  
-***  
-#### Understanding the data
-Geodata was a new format of data that was interesting as well as challenging. The  essential parts of data needed in this context are the .tif and .shp files.
-
-* The first step was to understand the data provided, which were the above mentioned DSM and DTM files. Here is a diagram to visually represent the same.  
-
-
-* Next, to figure out how to use DSM and DTM and to establish the relation CHM for end plotting.
-![DSM, DTM, CHM](https://user-images.githubusercontent.com/80852343/123079978-ba9dab00-d41c-11eb-9fcc-11c92c1bb7bf.png)
-
-
-* Another dimension was the complexity of data present in the DSM, DTM (43 x 2) zip folders, which totalled to more than 20/40 GB of data. Multiple files exist in layered file tree. The .tif files from 
-
-#### Data collection and cleaning
-
-#### Connecting the data and data processing  
-
-#### Data Visualization  
-
-#### GitHub collaboration  
-
-### **Contributions**
-
-
-
-
-
-
-
-**Libraries Used:**
-
-
+Click [here](link to jupyter nb) to open the interface and enjoy!
 
