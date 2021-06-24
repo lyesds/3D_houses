@@ -154,13 +154,12 @@ def render_polygon(polygon, geotiff_path):
 
     x_list, y_list = polygon.exterior.coords.xy
 
-    polygon_coordinates = list(zip([x - polygon.bounds[0] for x in x_list], [(polygon.bounds[3]-polygon.bounds[1])-(y - polygon.bounds[1]) for y in y_list]))
+    polygon_coordinates = list(zip([x - polygon.bounds[0] for x in x_list],
+                                   [(polygon.bounds[3] - polygon.bounds[1]) - (y - polygon.bounds[1]) for y in y_list]))
     bounding_box = [
         (polygon.bounds[0], polygon.bounds[1]),
         (polygon.bounds[2], polygon.bounds[3]),
     ]
-    plt.plot(*polygon.exterior.coords.xy)
-    plt.ticklabel_format(useOffset=False)
 
     # Initialize the datas
     z = gdal.Open(geotiff_path)
