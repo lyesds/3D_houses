@@ -142,7 +142,7 @@ def render_plot_around_xy(datapath: str, x: float, y: float, p: int = 40):
 # render_plot_around_xy(datapath='data/DSM/GeoTIFF/', x=152458.45, y=212084.91, p=45)
 
 
-def render_polygon(polygon, geotiff_path):
+def render_polygon(polygon, geotiff_path, use_polygon_bounding_box=False):
     """Function that crop a geotiff file by using a bounding box
     coordinate in order to render it in a 3d plot later
     Args:
@@ -201,4 +201,7 @@ def render_polygon(polygon, geotiff_path):
 
     # Rendering the plot
 
-    render_plot(x, y, mx.filled(mx.min()))
+    if not use_polygon_bounding_box:
+        render_plot(x, y, mx.filled(mx.min()))
+    else:
+        render_plot(x, y, z)
