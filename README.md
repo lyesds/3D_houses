@@ -8,7 +8,11 @@ https://github.com/lyesds) and [Shilpa S.](https://github.com/ssg-hub).
 This project is a _learning_ project about **data visualization** using Python tools.
 The objective is to generate a **3D rendering** of any building located in the Flanders region of Belgium.
 
-Here how the 3D rendering looks like (for now):
+***Input :*** An address given by user or selected by user from a pre-determined list.
+Example : Schoenmarkt 35, 2000 Antwerpen
+
+***Output :*** A 3D image rendered for the building structure at the above address.
+Example :
 ![Schoenmarkt35](assets/Schoenmarkt%2035,%202000%20Antwerpen%20DSM%20minus%20DTM.png)
 
 ### The timeline
@@ -54,3 +58,23 @@ Above link contains the required files for Belgium specific Lambert72 coordinate
 ### How to use
 Click [here](link to jupyter nb) to open the interface and enjoy!
 
+
+### Learning Objectives
+:heavy_check_mark: Consolidate the known in Python :snake:, specifically in numpy, pandas and matplotlib. 
+:heavy_check_mark: to be able to search and implement new libraries: **geopandas, osgeo, gdal, rasterio, shapely.**
+:heavy_check_mark: to be able to read and use the **shapefile** format
+:heavy_check_mark: to be able to read and use **.tif files** (GeoTIFF)
+:heavy_check_mark: to be able to render a **3D plot**
+:heavy_check_mark: to be able to present a **final product**
+
+### The Client and mission behind the project
+***
+-Client: LIDAR PLANES, active in the Geospatial industry.  
+-End use of data : To launch a new branch in the insurance business using a 3D model of houses with only their addresses as input.
+
+**Must-have features MVP** 
+3D lookup of houses :heavy_check_mark: :heavy_check_mark: _Delivered_  
+**Nice-to-have features** 
+Optimize your solution to have the result as fast as possible.  
+Features like the living area of the house in m², how many floors, if there is a pool, the vegetation in the neighborhood, etc...  
+Better visualization.  :heavy_check_mark: _To be delivered_  
