@@ -60,21 +60,16 @@ Click [here](link to jupyter nb) to open the interface and enjoy!
 
 
 ### Learning Objectives
-:heavy_check_mark: Consolidate the known in Python :snake:, specifically in numpy, pandas and matplotlib. 
-:heavy_check_mark: to be able to search and implement new libraries: **geopandas, osgeo, gdal, rasterio, shapely.**
-:heavy_check_mark: to be able to read and use the **shapefile** format
-:heavy_check_mark: to be able to read and use **.tif files** (GeoTIFF)
-:heavy_check_mark: to be able to render a **3D plot**
-:heavy_check_mark: to be able to present a **final product**
+- :heavy_check_mark: Consolidate the known in Python :snake:, specifically in numpy, pandas and matplotlib.
+- :heavy_check_mark: to be able to search and implement new libraries: **geopandas, osgeo, gdal, rasterio, shapely.**
+- :heavy_check_mark: to be able to read and use the **shapefile** format
+- :heavy_check_mark: to be able to read and use **.tif files** (GeoTIFF)
+- :heavy_check_mark: to be able to render a **3D plot**
+- :heavy_check_mark: to be able to present a **final product**
 
 ### The Client and mission behind the project
-***
--Client: LIDAR PLANES, active in the Geospatial industry.  
--End use of data : To launch a new branch in the insurance business using a 3D model of houses with only their addresses as input.
+- Client: LIDAR PLANES, active in the Geospatial industry.  
+- End use of data : to launch a new branch in the insurance business using a 3D model of houses with only their addresses as input.
 
-**Must-have features MVP** 
-3D lookup of houses :heavy_check_mark: :heavy_check_mark: _Delivered_  
-**Nice-to-have features** 
-Optimize your solution to have the result as fast as possible.  
-Features like the living area of the house in m², how many floors, if there is a pool, the vegetation in the neighborhood, etc...  
-Better visualization.  :heavy_check_mark: _To be delivered_  
+**Must-have features MVP:** 3D lookup of houses :heavy_check_mark: :heavy_check_mark: _Delivered_  
+**Nice-to-have features:** quick rendering, additional features (living area of the house in m², how many floors, if there is a pool, the vegetation in the neighborhood, etc...), better visualization.  :heavy_check_mark: _To be delivered_  
