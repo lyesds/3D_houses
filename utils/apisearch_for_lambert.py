@@ -1,3 +1,4 @@
+from utils.exceptions import AddressError
 import requests
 
 # api-endpoint
@@ -18,6 +19,8 @@ def lambert_x_y(address_of_desired_place: str) -> float:
 
     # extracting data in json format
     data = r.json()
+    if len(data["LocationResult"]) == 0:
+        raise AddressError("The address you inputed is not found, make sure it is formated like 'Street Number, ZipCode City'")
 
     # Lambert72 i.e. Belgian system coordinates for a given address
     x_lambert = data["LocationResult"][0]["Location"]["X_Lambert72"]

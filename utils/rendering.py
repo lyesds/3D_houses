@@ -188,10 +188,6 @@ def render_polygon(polygon, geotiff_path):
     masked_array = np.array(img)
     np.set_printoptions(threshold=np.inf)
     mx = ma.masked_array(z, mask=masked_array)
-    print(polygon_coordinates)
-    print(list(zip([x for x in x_list], [(y) for y in y_list])))
-    print(z)
-    print(mx)
 
     # Creating a x and y grid with all the x and y coordinates
 
