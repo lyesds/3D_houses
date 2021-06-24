@@ -61,10 +61,10 @@ Better visualization.  :heavy_check_mark: :heavy_check_mark: _Delivered_
 ***
 [DSM - Digital Surface Model](http://www.geopunt.be/download?container=dhm-vlaanderen-ii-dsm-raster-1m&title=Digitaal%20Hoogtemodel%20Vlaanderen%20II,%20DSM,%20raster,%201m) 
 [DTM - Digital Terrain Model](http://www.geopunt.be/download?container=dhm-vlaanderen-ii-dtm-raster-1m&title=Digitaal%20Hoogtemodel%20Vlaanderen%20II,%20DTM,%20raster,%201m)  
-Above links contain the required _.tif_ files for DSM and DTM respectively.
+Above links contain the required _.tif_ files for DSM and DTM respectively. _.tif_ is for the elevation of a structure.
 
 [Cadastral Data](https://eservices.minfin.fgov.be/myminfin-rest/cadastral-plan/cadastralPlan/2020/Belgium/72)  
-Above link contains the required _.shp_ files for Belgium specific Lambert72 coordinates.
+Above link contains the required _.shp_ files for Belgium specific Lambert72 coordinates. They are for the location and the shape of the building on ground.
 
 ### Installation Guide
 
