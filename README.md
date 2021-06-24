@@ -67,7 +67,18 @@ Above links contain the required _.tif_ files for DSM and DTM respectively. _.ti
 Above link contains the required _.shp_ files for Belgium specific Lambert72 coordinates. They are for the location and the shape of the building on ground.
 
 ### Installation Guide
+First of all you need to clone the project with this command in your terminal :
+> git clone https://github.com/lyesds/3D_houses.git
 
+Then you need to download all of the DSM and DTM files, extract them
+and take the file with a .tif extension (situated in the GeoTIFF folder of each DSM/DTM) and put it in the respective folders, assets/data/DSM for DSM files and assets/data/DTM for DTM files
+
+After that download the Cadastral data, extract it and put all of the files with the .shp extension inside assets/data/cadastral
+
+Lastly, run :
+> pip install -r requirements.txt
+
+In your terminal, at the root of the project folder
 
 ### How to use
 [Click here to open the interface](link to jupyter nb)  
