@@ -154,8 +154,12 @@ def render_polygon(polygon, geotiff_path):
 
     x_list, y_list = polygon.exterior.coords.xy
 
-    polygon_coordinates = list(zip([x - polygon.bounds[0] for x in x_list],
-                                   [(polygon.bounds[3] - polygon.bounds[1]) - (y - polygon.bounds[1]) for y in y_list]))
+    polygon_coordinates = list(
+        zip(
+            [x - polygon.bounds[0] for x in x_list],
+            [(polygon.bounds[3] - polygon.bounds[1]) - (y - polygon.bounds[1]) for y in y_list],
+        )
+    )
     bounding_box = [
         (polygon.bounds[0], polygon.bounds[1]),
         (polygon.bounds[2], polygon.bounds[3]),
@@ -188,13 +192,6 @@ def render_polygon(polygon, geotiff_path):
     masked_array = np.array(img)
     np.set_printoptions(threshold=np.inf)
     mx = ma.masked_array(z, mask=masked_array)
-<<<<<<< HEAD
-=======
-    print(polygon_coordinates)
-    print(list(zip([x for x in x_list], [(y) for y in y_list])))
-    print(z)
-    print(mx)
->>>>>>> d91b29b5b219203c4c4d8249cef9c1026627cf72
 
     # Creating a x and y grid with all the x and y coordinates
 
