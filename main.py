@@ -9,7 +9,6 @@ def render_address_in_3d(address, use_polygon_bounding_box=False):
     x, y = lambert_x_y(address)
 
     folder_path = "assets/data/"
-    folder_path = "/media/arnaud/0AE494D0E494BEFF/3d-house-data/"
 
     # Searching in the ReBu file for the polygon
     cadastral_path = folder_path + "cadastral/Bpn_ReBu.shp"
