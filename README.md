@@ -2,7 +2,7 @@
 
 **Project duration :** 2 weeks
 
-**Project dates :** 14th - 21st June, 2021
+**Project dates :** 14th - 25th June, 2021
 
 ### Team SpaCy : _Arnaud D, Lyes R, Shilpa S_
 
@@ -82,8 +82,7 @@ In your terminal, at the root of the project folder
 
 ### How to use
 [Click here to open the interface](link to jupyter nb)  
-
-Enter an address.  
+ 
 
 ### Results  
 ***  
