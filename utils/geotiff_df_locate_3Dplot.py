@@ -1,8 +1,9 @@
 import os
-from osgeo import gdal
+from datetime import datetime
+
 import matplotlib.pyplot as plt
 import pandas as pd
-from datetime import datetime
+from osgeo import gdal
 
 
 def geotiff_viz_df(datapath: str, chart: bool = False):
@@ -13,7 +14,7 @@ def geotiff_viz_df(datapath: str, chart: bool = False):
     The outputs are the chart DSM_tif_files.png and the data frame df_corners.
     The optional (chart=True) parameter should be specified if ones wants the chart to be saved in assets/.
     """
-    df_corners = pd.DataFrame(columns=['id', 'ulx', 'urx', 'lrx', 'llx', 'uly', 'ury', 'lry', 'lly'])
+    df_corners = pd.DataFrame(columns=["id", "ulx", "urx", "lrx", "llx", "uly", "ury", "lry", "lly"])
     for filename in os.listdir(datapath):
         if filename.endswith(".tif"):
             ds = gdal.Open(datapath + filename)
@@ -34,13 +35,13 @@ def geotiff_viz_df(datapath: str, chart: bool = False):
 
             if chart is True:
                 plt.plot([ulx, urx, lrx, llx, ulx], [uly, ury, lry, lly, uly], label=filename[-6:-4])
-                plt.text(llx, lly, filename[-6:-4], color='b')
+                plt.text(llx, lly, filename[-6:-4], color="b")
                 plt.axis([0, 3e5, 1.25e5, 2.75e5])
-                plt.title('DSM GeoTiff files of Flanders in Belgium (Lambert72 coordinates)')
+                plt.title("DSM GeoTiff files of Flanders in Belgium (Lambert72 coordinates)")
         else:
             continue
     if chart is True:
-        plt.savefig('assets/' + datetime.now().strftime("%Y%m%d_%I%M%S%p") + '_' + 'DSM_files.png', transparent=True)
+        plt.savefig("assets/" + datetime.now().strftime("%Y%m%d_%I%M%S%p") + "_" + "DSM_files.png", transparent=True)
     return df_corners
 
 
@@ -61,7 +62,7 @@ def locate(datapath: str, x: float, y: float) -> list:
             ls.append(df_corners.iloc[i, 0])
         else:
             continue
-    df_corners_sub = df_corners[df_corners['id'].isin(ls)]
+    df_corners_sub = df_corners[df_corners["id"].isin(ls)]
     ls = []
     for j in range(df_corners_sub.shape[0]):
         if df_corners_sub.iloc[j, 8] <= y <= df_corners_sub.iloc[j, 5]:
@@ -73,4 +74,4 @@ def locate(datapath: str, x: float, y: float) -> list:
 
 # Example of use of this function:
 # print(locate(datapath='data/DSM/GeoTIFF/', x=152458.45, y=212084.91)) #  <-- Lambert72 coordinates of this address:
-                                                                            # Schoenmarkt 35, 2000 Antwerpen
+# Schoenmarkt 35, 2000 Antwerpen
