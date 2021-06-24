@@ -5,13 +5,13 @@ This project was a teamwork by [Arnaud D.](
 https://github.com/Pablousse), [Lyes](
 https://github.com/lyesds) and [Shilpa S.](https://github.com/ssg-hub).
 ### The project
-This project is a _learning_ project about **data visualization** using Python tools.
-The objective is to generate a **3D rendering** of any building located in the Flanders region of Belgium.
+This is a _learning_ project about **data visualization** using Python tools.
+The objective is to generate a **3D rendering** of any building located in the Flanders region of Belgium using open data.
 
-***Input :*** An address given by user or selected by user from a pre-determined list.
+***Input :*** an address given by user or selected by user from a pre-determined list.
 Example : Schoenmarkt 35, 2000 Antwerpen
 
-***Output :*** A 3D image rendered for the building structure at the above address.
+***Output :*** a 3D image rendered for the building structure at the above address.
 Example :
 ![Schoenmarkt35](assets/Schoenmarkt%2035,%202000%20Antwerpen%20DSM%20minus%20DTM.png)
 
@@ -26,13 +26,13 @@ Please note that this project was done at the beginning of a training in AI wher
 - IDEs and notebooks,
 - Teamwork
 
-This is why there is room for improvements, both for the 3D rendering itself (using other plotting libraries)
-and for adding other features like living area of the house in m², how many floors, if there is a pool, the vegetation in the neighborhood, etc...
-Therefore, any contribution (comments, feedback, feature suggestion) or help is very welcome.
+This is why there is room for improvements, both for the 3D rendering itself (eg, using other plotting libraries)
+and for adding other features like living area of the house in m², number of floors, if there is a pool, the vegetation in the neighborhood, etc...
+Therefore, any contribution (comments, feedback, feature suggestion) or help is welcome!
 
 ### How it works (in a nutshell)
 From the address of a house or building given by the final user or selected from a pre-determined list, our application retrieves:
-- its location within Flanders (using an API), 
+- its location within Flanders (using an API),
 - the cadastral data associated to it,
 - the elevation data (please see resources.md for more info) of the location and its surroundings
 
@@ -59,17 +59,17 @@ Above link contains the required files for Belgium specific Lambert72 coordinate
 Click [here](link to jupyter nb) to open the interface and enjoy!
 
 
-### Learning Objectives
-- :heavy_check_mark: Consolidate the known in Python :snake:, specifically in numpy, pandas and matplotlib.
-- :heavy_check_mark: to be able to search and implement new libraries: **geopandas, osgeo, gdal, rasterio, shapely.**
-- :heavy_check_mark: to be able to read and use the **shapefile** format
-- :heavy_check_mark: to be able to read and use **.tif files** (GeoTIFF)
-- :heavy_check_mark: to be able to render a **3D plot**
-- :heavy_check_mark: to be able to present a **final product**
+### Learning objectives
+- :heavy_check_mark: consolidate the knowledge in Python :snake:, specifically in numpy, pandas and matplotlib.
+- :heavy_check_mark: search and implement new libraries: **geopandas, osgeo, gdal, rasterio, shapely.**
+- :heavy_check_mark: read and use the **shapefile** format
+- :heavy_check_mark: read and use **.tif files** (GeoTIFF)
+- :heavy_check_mark: render a **3D plot**
+- :heavy_check_mark: present a **final product**
 
 ### The Client and mission behind the project
-- Client: LIDAR PLANES, active in the Geospatial industry.  
-- End use of data : to launch a new branch in the insurance business using a 3D model of houses with only their addresses as input.
+- The client is LIDAR PLANES, a company active in the Geospatial industry.  
+- The goal is to  launch a new branch in the insurance business using a 3D model of houses with only their addresses as input.
 
-**Must-have features MVP:** 3D lookup of houses :heavy_check_mark: :heavy_check_mark: _Delivered_  
-**Nice-to-have features:** quick rendering, additional features (living area of the house in m², how many floors, if there is a pool, the vegetation in the neighborhood, etc...), better visualization.  :heavy_check_mark: _To be delivered_  
+**Must-have features:** 3D lookup of houses:heavy_check_mark:
+**Nice-to-have features:** quick rendering:heavy_check_mark:, additional features (living area of the house in m², number of floors, if there is a pool, the vegetation in the neighborhood, etc...), better visualization.  :snake: _To be delivered_  
