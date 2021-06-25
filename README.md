@@ -72,4 +72,5 @@ Click [here](link to jupyter nb) to open the interface and enjoy!
 - The goal is to  launch a new branch in the insurance business using a 3D model of houses with only their addresses as input.
 
 **Must-have features:** 3D lookup of houses:heavy_check_mark:
-**Nice-to-have features:** quick rendering:heavy_check_mark:, additional features (living area of the house in m², number of floors, if there is a pool, the vegetation in the neighborhood, etc...), better visualization.  :snake: _To be delivered_  
+
+**Nice-to-have features:** quick rendering:heavy_check_mark:, additional features (living area of the house in m², number of floors, if there is a pool, the vegetation in the neighborhood, etc...), better visualization.  :snake:
