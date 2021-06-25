@@ -13,7 +13,7 @@ Example : Schoenmarkt 35, 2000 Antwerpen
 
 ***Output :*** a 3D image rendered for the building structure at the above address.
 Example :
-![Schoenmarkt35](assets/Schoenmarkt%2035,%202000%20Antwerpen%20DSM%20minus%20DTM.png)
+![Schoenmarkt35](https://github.com/lyesds/3D_houses/blob/main/assets/Schoenmarkt%2035%2C%202000%20Antwerpen.png)
 
 ### The timeline
 This work was done during working hours in 2 weeks in June 2021 as required by the project timeline.
