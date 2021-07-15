@@ -142,5 +142,6 @@ unit_test.py
 # Vs code
 .vscode
 .pre-commit-config.yaml
-data
+split_data
 .flake8
+
